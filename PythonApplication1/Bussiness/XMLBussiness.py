@@ -5,26 +5,25 @@ from xml.etree import ElementTree
 import xml.dom.minidom
 
 class XMLClass:
+
     def GenerateXML(sqlResult, entity, fecha):
         if entity == "sociedades":
             sociedadList = []
             sociedadList = XMLClass.MappingSociety(sqlResult)
             XMLClass.GenerateXMLSociedades(sociedadList);
-            #print("\nresults:")
-            #for obj in list: 
-                #print( obj.Cod, obj.Razons, obj.Nif, obj.Codmoneda, sep = ' - ' ) 
-       # else:
-           # MappingDataBySociety(typeOfQuery, sqlResult , codeEntity, fecha)
+
+        else:
+            MappingDataBySociety(typeOfQuery, sqlResult , codeEntity, fecha)
 
         
     def MappingSociety(sqlResult):
-        # creating list
         listSoc = []  
 
         for item in sqlResult:
             listSoc.append(Sociedad.Sociedad(item[0], item[1], item[2], item[3]))
         
         return listSoc
+
 
     def GenerateXMLSociedades(sociedadList):
         document = ElementTree.Element('sociedades')
@@ -51,7 +50,6 @@ class XMLClass:
 
         parent = et.getroot()
         et2 = xml.dom.minidom.parseString(ElementTree.tostring(parent)).toprettyxml()
-        #print(et)
         
         with open("test.xml", "w") as files : 
             files.write(et2)
@@ -64,6 +62,7 @@ class XMLClass:
         }
         return switch.get(typeOfQuery, default())
 
+
     def Default():
         pass
 
@@ -71,6 +70,7 @@ class XMLClass:
     def fClientes(sqlResult, entity, fecha):
         clientesList = mapingClientes(sqlResult)
         GenerateXMLClientes(clientesList, codeEntity, fecha);
+
 
     def MapingClientes(sqlResult):
         listCliente = []  
