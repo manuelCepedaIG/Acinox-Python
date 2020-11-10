@@ -30,19 +30,19 @@ class SQLClass:
     
 
     def getQueryData(cnx, typeOfQuery, codeEntity):
-        #query = ("SELECT Codigo AS cod, Descripcion AS razons, NIT AS nif, 'COP' AS codmoneda FROM empresas WHERE  CODIGO IN(01,02);")
         file = open("SQL/" + typeOfQuery + ".sql", "r", encoding='utf-8-sig')
         query = file.read()
 
         try:
-          print("query executed: \n", query)
-          cursor = cnx.cursor()
-          cursor.execute(query)
-          myresult = cursor.fetchall()
+            if codeEntity and query:
+                query = query.replace("{0}", codeEntity);
 
-          print("\nresults:")
-          for x in myresult:
-              print(x)
+            print("query executed: \n", query)
+            cursor = cnx.cursor()
+            cursor.execute(query)
+            myresult = cursor.fetchall()
+
+            return myresult
 
         except mysql.connector.cursor.errors.Error as err:
             print(err)
