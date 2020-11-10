@@ -30,9 +30,9 @@ class SQLClass:
     
 
     def getQueryData(cnx, typeOfQuery, codeEntity):
-        query = ("SELECT Codigo AS cod, Descripcion AS razons, NIT AS nif, 'COP' AS codmoneda FROM empresas WHERE  CODIGO IN(01,02);")
-        file = open("SQL" + typeOfQuery + ".sql", "r")
-        contents = file.read()
+        #query = ("SELECT Codigo AS cod, Descripcion AS razons, NIT AS nif, 'COP' AS codmoneda FROM empresas WHERE  CODIGO IN(01,02);")
+        file = open("SQL/" + typeOfQuery + ".sql", "r", encoding='utf-8-sig')
+        query = file.read()
 
         try:
           print("query executed: \n", query)
