@@ -1,12 +1,14 @@
 from Models import Sociedad
 from Models import Cliente
 from io import BytesIO
-from xml.etree import ElementTree
-import xml.dom.minidom
+from lxml import etree
+from lxml import builder
 
 class XMLClass:
 
     def GenerateXML(sqlResult, entity, fecha):
+        print("Generating XML")
+
         if entity == "sociedades":
             sociedadList = []
             sociedadList = XMLClass.MappingSociety(sqlResult)
@@ -26,34 +28,40 @@ class XMLClass:
 
 
     def GenerateXMLSociedades(sociedadList):
-        document = ElementTree.Element('sociedades')
-        
-        for sociedad in sociedadList:
-            socNode = ElementTree.SubElement(document, 'soc')
 
-            nodeCod = ElementTree.SubElement(socNode, 'cod')
+        noNamespaceSchemaLocation = 'http://www.w3.org/2001/XMLSchema-instance'
+        xsi = 'http://www.w3.org/2001/XMLSchema-instance'
+        E = builder.ElementMaker( nsmap= { None: noNamespaceSchemaLocation, 'xsi': xsi })
+
+        document = etree.Element('sociedades')
+        document.attrib['{{{pre}}}noNamespaceSchemaLocation'.format(pre=xsi)] = 'sociedades'
+
+        for sociedad in sociedadList:
+            socNode = etree.SubElement(document, 'soc')
+
+            nodeCod = etree.SubElement(socNode, 'cod')
             nodeCod.text = sociedad.Cod
 
-            nodeRazons = ElementTree.SubElement(socNode, 'razons')
+            nodeRazons = etree.SubElement(socNode, 'razons')
             nodeRazons.text = sociedad.Razons
 
-            nodeNif = ElementTree.SubElement(socNode, 'nif')
+            nodeNif = etree.SubElement(socNode, 'nif')
             nodeNif.text = sociedad.Nif
 
-            nodeCodmoneda = ElementTree.SubElement(socNode, 'codmoneda')
+            nodeCodmoneda = etree.SubElement(socNode, 'codmoneda')
             nodeCodmoneda.text = sociedad.Codmoneda
             
-        et = ElementTree.ElementTree(document)
-        f = BytesIO()
-        et.write(f, encoding='utf-8', xml_declaration=True) 
+        et = etree.ElementTree(document)
+        #f = BytesIO()
+        #et.write('sociedades.xml', encoding='utf-8', xml_declaration=True) 
         #print(f.getvalue())  # your XML file, encoded as UTF-8
 
-        parent = et.getroot()
-        et2 = xml.dom.minidom.parseString(ElementTree.tostring(parent)).toprettyxml()
+        #parent = et.getroot()
+        #et2 = xml.dom.minidom.parseString(ElementTree.tostring(parent)).toprettyxml()
         
-        with open("test.xml", "w") as files : 
-            files.write(et2)
-
+        with open("sociedades.xml", "wb") as files : 
+            #files.write(et)
+            et.write(files,  encoding="UTF-8", xml_declaration=True, pretty_print=True)
 
 
     def MappingDataBySociety(typeOfQuery, sqlResult , codeEntity, fecha):

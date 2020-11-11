@@ -1,8 +1,8 @@
 ﻿SELECT 
-    T.CODIGO AS codcli, 
+    CXC.ID_TERC AS codcli, 
     CXC.ID_TIPO_CRU AS tdoc, 
     CXC.ID_NRO_CRU AS ndoc, 
-    CXC.ID_DIAS_VCTO AS nvcto, 
+    '' AS nvcto, /* Validar con condicion de pago - relacionar plazos de pago */
     CXC.ID_FECHA_CONTAB AS fchemi, 
     CXC.ID_FECHA_VCTO AS fcvcto, 
     CXC.SALDOS_TOT_CARTERA AS importe, 
@@ -12,7 +12,7 @@
     '' AS codcondp, 
     'COP' AS codmondoc, 
     '' AS impmondoc, 
-    '' AS ind1, 
+    CXC.ID_CUENTA AS ind1, 
     '' AS ind2, 
     '' AS ind3, 
     '' AS ind4, 
@@ -24,6 +24,7 @@
     CONCAT_WS('@#', CXC.ID_FECHA_CONTAB, CXC.ID_TIPO_CRU, CXC.ID_NRO_CRU) AS campoid, 
     '' AS codejercicio, 
     '' AS numdocorigen 
+
 FROM 
     cgresumen_cxc AS CXC 
     INNER JOIN terceros AS T ON CXC.ID_TERC = T.CODIGO AND CXC.ID_SUC = T.SUCURSAL 
@@ -31,7 +32,7 @@ FROM
 WHERE 
     CXC.ID_EMP = '{0}' 
     AND CXC.ID_FECHA_CANC = 0 
-    AND ID_FECHA_CONTAB = (SELECT MAX(ID_FECHA_CONTAB) FROM CGRESUMEN_CXC WHERE ID_FECHA_CANC = 0) 
+    AND CXC.LAPSO_DOC =  (SELECT MAX(LAPSO_DOC) FROM CGRESUMEN_CXC)
 ORDER BY 
     T.CODIGO,
     CXC.ID_TIPO_CRU,

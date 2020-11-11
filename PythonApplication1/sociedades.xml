@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<sociedades xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="sociedades">
+  <soc>
+    <cod>01</cod>
+    <razons>ACINOX S.A.</razons>
+    <nif>000000800240061</nif>
+    <codmoneda>COP</codmoneda>
+  </soc>
+  <soc>
+    <cod>02</cod>
+    <razons>ACEROS INOXIDABLES S.A.</razons>
+    <nif>000000830085294</nif>
+    <codmoneda>COP</codmoneda>
+  </soc>
+</sociedades>
