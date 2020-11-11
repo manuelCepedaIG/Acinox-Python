@@ -37,7 +37,8 @@ class SQLClass:
             if codeEntity and query:
                 query = query.replace("{0}", codeEntity);
 
-            print("query executed: \n", query)
+            print("Getting info from database")
+            #print("query executed: \n", query)
             cursor = cnx.cursor()
             cursor.execute(query)
             myresult = cursor.fetchall()
