@@ -6,7 +6,7 @@ from lxml import builder
 
 class XMLClass:
 
-    def GenerateXML(sqlResult, entity, fecha):
+    def GenerateXML(sqlResult, entity, date):
         print("Generating XML")
 
         if entity == "sociedades":
@@ -15,7 +15,7 @@ class XMLClass:
             XMLClass.GenerateXMLSociedades(sociedadList);
 
         else:
-            MappingDataBySociety(typeOfQuery, sqlResult , codeEntity, fecha)
+            MappingDataBySociety(typeOfQuery, sqlResult , codeEntity, date)
 
         
     def MappingSociety(sqlResult):
@@ -52,21 +52,14 @@ class XMLClass:
             nodeCodmoneda.text = sociedad.Codmoneda
             
         et = etree.ElementTree(document)
-        #f = BytesIO()
-        #et.write('sociedades.xml', encoding='utf-8', xml_declaration=True) 
-        #print(f.getvalue())  # your XML file, encoded as UTF-8
-
-        #parent = et.getroot()
-        #et2 = xml.dom.minidom.parseString(ElementTree.tostring(parent)).toprettyxml()
         
         with open("sociedades.xml", "wb") as files : 
-            #files.write(et)
             et.write(files,  encoding="UTF-8", xml_declaration=True, pretty_print=True)
 
 
-    def MappingDataBySociety(typeOfQuery, sqlResult , codeEntity, fecha):
+    def MappingDataBySociety(typeOfQuery, sqlResult , codeEntity, date):
         switch = {
-            "clientes" : fClientes(sqlResult, entity, fecha)
+            "clientes" : fClientes(sqlResult, entity, date)
         }
         return switch.get(typeOfQuery, default())
 
@@ -75,9 +68,9 @@ class XMLClass:
         pass
 
 
-    def fClientes(sqlResult, entity, fecha):
+    def fClientes(sqlResult, entity, date):
         clientesList = mapingClientes(sqlResult)
-        GenerateXMLClientes(clientesList, codeEntity, fecha);
+        GenerateXMLClientes(clientesList, codeEntity, date);
 
 
     def MapingClientes(sqlResult):

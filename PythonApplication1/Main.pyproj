@@ -3,13 +3,14 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>060015b8-0365-41d5-8a70-0d95091a6e4a</ProjectGuid>
-    <ProjectHome>.</ProjectHome>
-    <StartupFile>Main\PythonApplication1.py</StartupFile>
+    <ProjectHome>
+    </ProjectHome>
+    <StartupFile>Main\Main.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>
-    <Name>PythonApplication1</Name>
+    <Name>Main</Name>
     <RootNamespace>PythonApplication1</RootNamespace>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
@@ -24,7 +25,10 @@
     <Compile Include="Bussiness\XMLBussiness.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Main\PythonApplication1.py" />
+    <Compile Include="Bussiness\XSDBussiness.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Main\Main.py" />
     <Compile Include="Bussiness\SQLBussiness.py" />
     <Compile Include="Bussiness\__init__.py">
       <SubType>Code</SubType>
@@ -42,6 +46,8 @@
     <Folder Include="Bussiness\" />
     <Folder Include="Models\" />
     <Folder Include="SQL\" />
+    <Folder Include="XML\" />
+    <Folder Include="XSD\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="SQL\clasifcriterios.sql" />
@@ -51,6 +57,18 @@
     <Content Include="SQL\partabiertas.sql" />
     <Content Include="SQL\sociedades.sql" />
     <Content Include="SQL\ventas.sql" />
+    <Content Include="XSD\clasifcriterios.xsd" />
+    <Content Include="XSD\clientes.xsd" />
+    <Content Include="XSD\cndpago.xsd" />
+    <Content Include="XSD\contactos.xsd" />
+    <Content Include="XSD\direcciones.xsd" />
+    <Content Include="XSD\partabiertas.xsd" />
+    <Content Include="XSD\partcomps.xsd" />
+    <Content Include="XSD\partcompsinv.xsd" />
+    <Content Include="XSD\saldosnofacturados.xsd" />
+    <Content Include="XSD\sociedades.xsd" />
+    <Content Include="XSD\ventas.xsd" />
+    <Content Include="XSD\viaspago.xsd" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
   <!-- Uncomment the CoreCompile target to enable the Build command in
